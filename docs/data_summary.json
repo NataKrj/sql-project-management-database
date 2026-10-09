@@ -1,0 +1,15 @@
+{
+  "clients": 10,
+  "employees": 10,
+  "positions": 5,
+  "roles": 3,
+  "proposals": 13,
+  "projects": 8,
+  "timesheets": 21,
+  "employee_project_assignments": 32,
+  "employee_proposal_assignments": 52,
+  "employee_role_assignments": 32,
+  "employee_timesheet_rows": 3676,
+  "timesheet_daily_rows": 3170,
+  "working_dates": 556
+}

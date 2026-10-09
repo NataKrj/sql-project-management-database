@@ -1,0 +1,43 @@
+digraph ERD {
+  graph [rankdir=TB, bgcolor="white", pad="0.4", nodesep="0.55", ranksep="0.75", splines=polyline];
+  node [shape=record, fontname="Arial", fontsize=11, margin="0.12"];
+  edge [fontname="Arial", fontsize=9, arrowsize=0.8];
+
+  client [label="{CLIENT|PK  client_id : integer\lcompany_name : varchar\lregistration_no : varchar\l}"];
+  timesheet [label="{TIMESHEET|PK  timesheet_id : varchar\lstart_date : date\lend_date : date\ltotal_hours : integer\l}"];
+  proposal [label="{PROPOSAL|PK  proposal_id : varchar\lFK  client_id : integer\lFK  timesheet_id : varchar\ldate_submitted : date\lrequest_date : date\lstatus : varchar\lbudget : integer\l}"];
+  project [label="{PROJECT|PK  project_id : integer\lFK  client_id : integer\lFK  proposal_id : varchar\lFK  timesheet_id : varchar\lproject_name : varchar\lstart_date / end_date : date\lstatus : varchar\l}"];
+
+  position [label="{POSITION|PK  position_id : integer\lposition_name : varchar\l}"];
+  employee [label="{EMPLOYEE|PK  employee_id : integer\lFK  position_id : integer\lfirst_name / last_name : varchar\lemail / contact_number : varchar\ldate_of_birth / start_date : date\l}"];
+  role [label="{ROLE|PK  role_id : integer\lrole_name : varchar\l}"];
+
+  employee_project [label="{EMPLOYEE_PROJECT|PK  employee_project_id : varchar\lFK  employee_id : integer\lFK  project_id : integer\l}"];
+  employee_proposal [label="{EMPLOYEE_PROPOSAL|PK  employee_proposal_id : varchar\lFK  employee_id : integer\lFK  proposal_id : varchar\l}"];
+  employee_role [label="{EMPLOYEE_ROLE|PK  employee_role_id : varchar\lFK  employee_id : integer\lFK  project_id : integer\lFK  role_id : integer\l}"];
+  employee_timesheet [label="{EMPLOYEE_TIMESHEET|PK  employee_timesheet_id : varchar\lFK  timesheet_id : varchar\lFK  employee_project_id : varchar (nullable)\lFK  employee_proposal_id : varchar (nullable)\lwork_date : date\lproject_hours / proposal_hours : integer\l}"];
+
+  {rank=same; client; timesheet;}
+  {rank=same; proposal; project;}
+  {rank=same; position; role;}
+  {rank=same; employee_project; employee_proposal; employee_role;}
+
+  client -> proposal [label=" 1:N"];
+  client -> project [label=" 1:N"];
+  proposal -> project [label=" 1:0..1"];
+  timesheet -> proposal [label=" 1:0..1"];
+  timesheet -> project [label=" 1:0..1"];
+
+  position -> employee [label=" 1:N"];
+  employee -> employee_project [label=" 1:N"];
+  project -> employee_project [label=" 1:N"];
+  employee -> employee_proposal [label=" 1:N"];
+  proposal -> employee_proposal [label=" 1:N"];
+  employee -> employee_role [label=" 1:N"];
+  project -> employee_role [label=" 1:N"];
+  role -> employee_role [label=" 1:N"];
+
+  timesheet -> employee_timesheet [label=" 1:N"];
+  employee_project -> employee_timesheet [label=" 1:N"];
+  employee_proposal -> employee_timesheet [label=" 1:N"];
+}

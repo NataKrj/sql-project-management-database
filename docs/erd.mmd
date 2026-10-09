@@ -1,0 +1,17 @@
+erDiagram
+    CLIENT ||--o{ PROPOSAL : has
+    CLIENT ||--o{ PROJECT : has
+    POSITION ||--o{ EMPLOYEE : classifies
+    PROPOSAL ||--o| PROJECT : becomes
+    TIMESHEET ||--o| PROPOSAL : tracks
+    TIMESHEET ||--o| PROJECT : tracks
+    EMPLOYEE ||--o{ EMPLOYEE_PROJECT : assigned
+    PROJECT ||--o{ EMPLOYEE_PROJECT : includes
+    EMPLOYEE ||--o{ EMPLOYEE_PROPOSAL : assigned
+    PROPOSAL ||--o{ EMPLOYEE_PROPOSAL : includes
+    EMPLOYEE ||--o{ EMPLOYEE_ROLE : holds
+    PROJECT ||--o{ EMPLOYEE_ROLE : defines
+    ROLE ||--o{ EMPLOYEE_ROLE : categorizes
+    TIMESHEET ||--o{ EMPLOYEE_TIMESHEET : contains
+    EMPLOYEE_PROJECT ||--o{ EMPLOYEE_TIMESHEET : project_work
+    EMPLOYEE_PROPOSAL ||--o{ EMPLOYEE_TIMESHEET : proposal_work
